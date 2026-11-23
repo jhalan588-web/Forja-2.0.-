@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="pt-BR">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171c19">
+  <meta name="description" content="FORJA — estudos, treinamento e evolução pessoal.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>FORJA — Disciplina & Evolução</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="FORJA início"><span class="brand-mark">F</span><span>FORJA<span class="brand-dot">.</span><small>DISCIPLINA & EVOLUÇÃO</small></span></a>
+      <button class="icon-button" id="installBtn" hidden aria-label="Instalar aplicativo">⇩</button>
+    </header>
+
+    <main>
+      <section class="view active" id="inicio">
+        <div class="hero panel">
+          <div class="eyebrow"><span class="status-dot"></span> CENTRAL DE OPERAÇÕES</div>
+          <p class="date-line" id="todayLabel">SEU DIA, SUA FORJA</p>
+          <h1>Construa sua<br><em>evolução.</em></h1>
+          <p class="muted hero-copy">Pequenos passos, feitos com constância, constroem grandes resultados.</p>
+          <div class="level-row">
+            <div><span class="micro-label">NÍVEL ATUAL</span><strong class="level-number" id="levelValue">01</strong><span class="level-name" id="levelName">Iniciante</span></div>
+            <div class="xp-block"><div class="xp-line"><span id="xpText">0 XP</span><span id="nextXpText">100 XP</span></div><div class="progress"><i id="xpBar"></i></div><small id="xpRemaining">100 XP para o próximo nível</small></div>
+          </div>
+        </div>
+        <div class="section-heading"><div><span class="eyebrow">VISÃO GERAL</span><h2>Seu progresso</h2></div><span class="date-chip" id="dateChip">HOJE</span></div>
+        <div class="stats-grid">
+          <article class="stat-card"><span class="stat-icon">▤</span><span class="micro-label">ESTUDOS</span><strong id="studyCount">0</strong><small>atividades hoje</small></article>
+          <article class="stat-card"><span class="stat-icon">⬡</span><span class="micro-label">TREINOS</span><strong id="workoutCount">0</strong><small>atividades hoje</small></article>
+          <article class="stat-card"><span class="stat-icon">✦</span><span class="micro-label">EXPERIÊNCIA</span><strong id="totalXp">0</strong><small>XP acumulados</small></article>
+          <article class="stat-card"><span class="stat-icon">◷</span><span class="micro-label">DIAS ATIVOS</span><strong id="activeDays">0</strong><small>dias com registros</small></article>
+        </div>
+        <div class="section-heading"><div><span class="eyebrow">MISSÃO DO DIA</span><h2>Ordem de progresso</h2></div></div>
+        <div class="panel daily-panel">
+          <div class="daily-top"><strong id="dailyProgressText">0 de 0 concluídas</strong><span id="dailyPercent">0%</span></div>
+          <div class="progress large"><i id="dailyBar"></i></div>
+          <p class="muted" id="dailyMessage">Escolha uma atividade nas áreas de estudo ou treinamento.</p>
+          <button class="text-button" data-go="estudos">Abrir atividades <span>→</span></button>
+        </div>
+        <div class="quote-card"><span class="quote-mark">“</span><p>O caráter se fortalece na prática diária.</p><small>LEMBRETE DA FORJA</small></div>
+      </section>
+
+      <section class="view" id="estudos">
+        <div class="page-intro"><span class="eyebrow">CONHECIMENTO</span><h1>Centro de<br><em>estudos.</em></h1><p class="muted">Registre o que você estudou. Aprender vale mais do que apenas acumular pontos.</p></div>
+        <div class="section-heading"><div><span class="eyebrow">DISCIPLINAS</span><h2>Matérias</h2></div><span class="count-pill" id="subjectDone">0/8</span></div>
+        <div class="activity-list" id="subjectList"></div>
+        <div class="section-heading"><div><span class="eyebrow">HÁBITOS DE APRENDIZAGEM</span><h2>Complementos</h2></div></div>
+        <div class="activity-list" id="studyExtras"></div>
+        <p class="hint">Cada atividade concluída rende 10 XP. Registros podem ser desmarcados se você tocar por engano.</p>
+      </section>
+
+      <section class="view" id="treinos">
+        <div class="page-intro"><span class="eyebrow">MOVIMENTO & RECUPERAÇÃO</span><h1>Centro de<br><em>treinamento.</em></h1><p class="muted">Registre suas atividades com equilíbrio. Recuperação, sono e descanso também fazem parte do progresso.</p></div>
+        <div class="notice"><span>◎</span><p><strong>Treine com consciência.</strong><br>Respeite seus limites e não tente compensar atividades perdidas com excesso de treino.</p></div>
+        <div class="section-heading"><div><span class="eyebrow">MODALIDADES</span><h2>Atividades</h2></div><span class="count-pill" id="workoutDone">0/4</span></div>
+        <div class="activity-list" id="workoutList"></div>
+        <div class="section-heading"><div><span class="eyebrow">RECUPERAÇÃO</span><h2>Dia de descanso</h2></div></div>
+        <div class="rest-card" id="restCard"><div class="rest-icon">☾</div><div><strong>Priorizei a recuperação</strong><p class="muted">Marque quando descanso for sua escolha de hoje.</p></div><button class="toggle" id="restToggle" aria-label="Marcar descanso"></button></div>
+      </section>
+
+      <section class="view" id="agenda">
+        <div class="page-intro"><span class="eyebrow">PLANEJAMENTO</span><h1>Agenda de<br><em>missões.</em></h1><p class="muted">Organize compromissos, aulas, treinos e momentos importantes.</p></div>
+        <form class="form-card" id="eventForm">
+          <label>Compromisso<input id="eventTitle" maxlength="70" required placeholder="Ex.: Jiu-jitsu, treino, consulta..."></label>
+          <div class="form-row"><label>Tipo<select id="eventType"><option>Treino</option><option>Estudo</option><option>Compromisso</option><option>Pessoal</option></select></label><label>Data<input id="eventDate" type="date" required></label></div>
+          <div class="form-row"><label>Horário<input id="eventTime" type="time" required></label><label>Duração<select id="eventDuration"><option value="30">30 min</option><option value="45">45 min</option><option value="60" selected>1 hora</option><option value="90">1h30</option><option value="120">2 horas</option><option value="180">3 horas</option></select></label></div>
+          <label>Observações (opcional)<textarea id="eventNotes" rows="2" maxlength="240" placeholder="Local, material necessário, detalhes..."></textarea></label>
+          <button class="primary-button" type="submit">＋ Adicionar à agenda</button>
+        </form>
+        <div class="section-heading"><div><span class="eyebrow">ORGANIZAÇÃO</span><h2>Próximos compromissos</h2></div></div>
+        <div id="eventList" class="event-list"></div>
+      </section>
+
+      <section class="view" id="biblioteca">
+        <div class="page-intro"><span class="eyebrow">REPERTÓRIO PESSOAL</span><h1>Biblioteca de<br><em>ideias.</em></h1><p class="muted">Registre obras, imagens e suas próprias conclusões. A biblioteca é um espaço para pensar, não apenas colecionar títulos.</p></div>
+        <form class="form-card" id="bookForm">
+          <label>Obra / título<input id="bookTitle" maxlength="100" required placeholder="Nome do livro ou obra"></label>
+          <label>Autor (opcional)<input id="bookAuthor" maxlength="70" placeholder="Autor ou autora"></label>
+          <label>Foto da obra (opcional)<input id="bookPhoto" type="file" accept="image/*"></label>
+          <div class="photo-preview" id="photoPreview" hidden></div>
+          <label>Sua conclusão<textarea id="bookConclusion" rows="4" maxlength="1800" required placeholder="O que você compreendeu? Que ideias ficaram? O que questionou?"></textarea></label>
+          <button class="primary-button" type="submit">＋ Guardar na biblioteca</button>
+          <p class="form-hint">As imagens são reduzidas para economizar espaço no aparelho.</p>
+        </form>
+        <div class="section-heading"><div><span class="eyebrow">ACERVO</span><h2>Minhas obras</h2></div><span class="count-pill" id="bookCount">0 obras</span></div>
+        <div id="bookList" class="book-list"></div>
+      </section>
+
+      <section class="view" id="objetivos">
+        <div class="page-intro"><span class="eyebrow">DIREÇÃO & PROPÓSITO</span><h1>Meus<br><em>objetivos.</em></h1><p class="muted">Você define o que deseja alcançar. Divida objetivos em passos e acompanhe o caminho com tranquilidade.</p></div>
+        <form class="form-card" id="goalForm">
+          <label>Escreva seu objetivo<input id="goalTitle" maxlength="100" required placeholder="Ex.: Aprender fundamentos de física"></label>
+          <label>Pequenos passos (opcional)<textarea id="goalSteps" rows="2" maxlength="400" placeholder="Um passo por linha"></textarea></label>
+          <button class="primary-button" type="submit">＋ Criar objetivo</button>
+        </form>
+        <div class="section-heading"><div><span class="eyebrow">MEU CAMINHO</span><h2>Lista de objetivos</h2></div><span class="count-pill" id="goalCount">0 objetivos</span></div>
+        <div id="goalList" class="goal-list"></div>
+      </section>
+
+      <section class="view" id="historico">
+        <div class="page-intro"><span class="eyebrow">REGISTROS</span><h1>Seu<br><em>histórico.</em></h1><p class="muted">Veja sua constância e as atividades registradas em cada dia.</p></div>
+        <div class="panel history-summary"><span class="micro-label">TOTAL DE EXPERIÊNCIA</span><strong id="historyXp">0 XP</strong><span class="muted" id="historyDays">Nenhum dia registrado ainda.</span></div>
+        <div class="section-heading"><div><span class="eyebrow">LINHA DO TEMPO</span><h2>Últimos registros</h2></div></div>
+        <div id="historyList" class="history-list"></div>
+      </section>
+
+      <section class="view" id="ajustes">
+        <div class="page-intro"><span class="eyebrow">CONFIGURAÇÕES</span><h1>Base de<br><em>controle.</em></h1><p class="muted">Gerencie seus dados e conheça o funcionamento da FORJA.</p></div>
+        <div class="settings-card"><div><strong>Armazenamento local</strong><p class="muted">Seus registros ficam salvos neste navegador, neste aparelho.</p></div><span class="safe-tag">NO APARELHO</span></div>
+        <div class="settings-card"><div><strong>Instalação</strong><p class="muted">Use o botão de instalar ou o menu do navegador e escolha “Adicionar à tela inicial”.</p></div><span class="settings-icon">⇧</span></div>
+        <div class="settings-card"><div><strong>Como funciona o XP?</strong><p class="muted">Cada atividade concluída vale 10 XP. A cada 100 XP, você sobe um nível. O XP é uma forma divertida de acompanhar registros, não uma medida do seu valor ou capacidade.</p></div></div>
+        <div class="settings-card"><div><strong>Privacidade</strong><p class="muted">A versão atual não envia seus registros para servidores. Limpar os dados do navegador pode apagar seu progresso.</p></div></div>
+        <button class="danger-button" id="exportBtn">Exportar meus dados (JSON)</button>
+        <button class="danger-button subtle-danger" id="resetBtn">Apagar todos os dados</button>
+        <p class="hint">FORJA · Versão 2.0. Feita para apoiar hábitos saudáveis de estudo, movimento e descanso.</p>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegação principal">
+      <button class="nav-item active" data-tab="inicio"><span>⌂</span><small>Início</small></button>
+      <button class="nav-item" data-tab="estudos"><span>▤</span><small>Estudos</small></button>
+      <button class="nav-item" data-tab="treinos"><span>⬡</span><small>Treinos</small></button>
+      <button class="nav-item" data-tab="agenda"><span>▦</span><small>Agenda</small></button>
+      <button class="nav-item" data-tab="biblioteca"><span>▤</span><small>Biblioteca</small></button>
+      <button class="nav-item" data-tab="objetivos"><span>✓</span><small>Objetivos</small></button>
+      <button class="nav-item" data-tab="historico"><span>◷</span><small>Histórico</small></button>
+      <button class="nav-item" data-tab="ajustes"><span>⚙</span><small>Ajustes</small></button>
+    </nav>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
